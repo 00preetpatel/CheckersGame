@@ -6,7 +6,7 @@ import ui.CheckersTextConsole;
  * This is the main class for the Checkers game.
  * It is responsible for starting the game, choosing the UI, and competitor.
  * 
- * Author: [Preet Patel]
+ * @author Preet Patel
  */
 public class RunGame {
     
