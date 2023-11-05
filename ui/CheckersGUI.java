@@ -21,12 +21,22 @@ import core.CheckersLogic;
  */
 public class CheckersGUI extends Application {
     
+    private static boolean playAgainstComputer = false;
+
     private CheckersComputerPlayer computerPlayer;
     private CheckersLogic gameLogic; 
     private GridPane boardGrid; 
     private int selectedX = -1;
     private int selectedY = -1;
-
+    
+    /**
+     * Sets whether the user wants to play against the computer.
+     * 
+     * @param playAgainstComp
+     */
+    public static void setPlayAgainstComputer(boolean playAgainstComp) {
+            playAgainstComputer = playAgainstComp;
+    }
 
     /**
      * Starts the JavaFX application.
@@ -38,7 +48,10 @@ public class CheckersGUI extends Application {
         try {
             gameLogic = new CheckersLogic(); // Initialize game logic
             boardGrid = new GridPane(); // Create the grid for the board
-            computerPlayer = new CheckersComputerPlayer(gameLogic); // Initialize computer player
+           
+            if (playAgainstComputer){
+                computerPlayer = new CheckersComputerPlayer(gameLogic);
+            } // Initialize computer player
             
             initializeBoard(); // Initialize the game board
 
@@ -50,6 +63,8 @@ public class CheckersGUI extends Application {
             e.printStackTrace(); // Handle exceptions appropriately
         }
     }
+
+    
 
     /**
      * Initializes the game board with pieces.
@@ -124,20 +139,33 @@ public class CheckersGUI extends Application {
                 selectedY = y;
                 highlightSquare(x, y, true);
             }
-        } else {
+        } 
+        else 
+        {
             // Attempt to move the piece
-            if (gameLogic.movePiece(selectedX, selectedY, x, y)) {
+            if (gameLogic.movePiece(selectedX, selectedY, x, y)) 
+            {
                 highlightSquare(selectedX, selectedY, false);
+
                 selectedX = -1;
                 selectedY = -1;
+
                 updateUI();
                 gameLogic.checkGameEnd(); // Check if the player's move ended the game
-                if (gameLogic.isGameEnded()) {
+                
+                if (gameLogic.isGameEnded()) 
+                {
                     endGame(); // Handle the end of the game
-                } else {
-                    makeComputerMove(); // If the game is not ended, continue with the computer's move
+                } 
+                else 
+                {
+                    if (playAgainstComputer) {
+                        makeComputerMove(); // If the game is not ended, continue with the computer's move
+                    }
                 }
-            } else {
+            } 
+            else 
+            {
                 highlightSquare(selectedX, selectedY, false);
                 selectedX = -1;
                 selectedY = -1;
@@ -168,12 +196,14 @@ public class CheckersGUI extends Application {
      * Makes the computer player move.
      */
     private void makeComputerMove() {
-        String move = computerPlayer.generateMove();
-        if (!move.equals("")) {
-            updateUI();
-            gameLogic.checkGameEnd(); // Check if the computer's move ended the game
-            if (gameLogic.isGameEnded()) {
-                endGame(); // Handle the end of the game
+        if (playAgainstComputer){
+            String move = computerPlayer.generateMove();
+            if (!move.equals("")) {
+                updateUI();
+                gameLogic.checkGameEnd(); // Check if the computer's move ended the game
+                if (gameLogic.isGameEnded()) {
+                    endGame(); // Handle the end of the game
+                }
             }
         }
     }

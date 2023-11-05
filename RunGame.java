@@ -22,6 +22,7 @@ public class RunGame {
         boolean playAgainstComputer = chooseOpponent();
 
         if ("GUI".equalsIgnoreCase(uiType)) {
+            CheckersGUI.setPlayAgainstComputer(playAgainstComputer);
             CheckersGUI.launch(CheckersGUI.class, args);
         } else {
             CheckersTextConsole consoleGame = new CheckersTextConsole(playAgainstComputer);
@@ -63,8 +64,17 @@ public class RunGame {
             {
                 System.out.println("\nInvalid selection. Please enter 'P' or 'C'.");
             }
-        } 
-        while (!gameMode.equals("P") && !gameMode.equals("C"));
-        return gameMode.equals("C");
+        } while (!gameMode.equals("P") && !gameMode.equals("C"));
+        if (gameMode.equals("P")){
+            return false;
+        }
+        else if (gameMode.equals("C")){
+            return true;
+
+        }
+        else {
+            return false; //default to P vs P
+        }
+
     }
 }
