@@ -47,7 +47,7 @@ public class CheckersComputerPlayer {
         {
             // Select a random capture move
             String move = possibleCaptures.get(random.nextInt(possibleCaptures.size()));
-            performMove(move); 
+            performMultipleCaptures(move);
             return move;
         } 
         else if (!possibleMoves.isEmpty()) 
@@ -59,6 +59,36 @@ public class CheckersComputerPlayer {
         }
 
         return "";
+    }
+
+    /**
+     * Performs a sequence of multiple captures.
+     *
+     * @param move A string representing the sequence of captures, e.g., "3a-5c-7e".
+     */
+    private void performMultipleCaptures(String move) {
+        String[] parts = move.split("-");
+        for (int i = 0; i < parts.length - 1; i++) {
+            int startX = parts[i].charAt(0) - '1';
+            int startY = parts[i].charAt(1) - 'a';
+            int endX = parts[i + 1].charAt(0) - '1';
+            int endY = parts[i + 1].charAt(1) - 'a';
+    
+            gameLogic.movePiece(startX, startY, endX, endY);
+    
+            // Check if there are more captures available
+            List<String> possibleCaptures = new ArrayList<>();
+            addValidCapturesForPiece(possibleCaptures, endX, endY);
+    
+            if (!possibleCaptures.isEmpty()) {
+                // Continue with the next capture
+                String nextCapture = possibleCaptures.get(random.nextInt(possibleCaptures.size()));
+                performMultipleCaptures(nextCapture);
+            } else {
+                // No more captures available, break the loop
+                break;
+            }
+        }
     }
 
     /**

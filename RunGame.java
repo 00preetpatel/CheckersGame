@@ -38,11 +38,11 @@ public class RunGame {
         String uiType;
         do 
         {
-            System.out.println("Choose UI: 'GUI' for graphical interface or 'Console' for text-based interface.");
+            System.out.println("\nChoose UI: 'GUI' for graphical interface or 'Console' for text-based interface.");
             uiType = scanner.nextLine().trim();
             if (!"GUI".equalsIgnoreCase(uiType) && !"Console".equalsIgnoreCase(uiType)) 
             {
-                System.out.println("Invalid UI type. Please enter 'GUI' or 'Console'.");
+                System.out.println("\nInvalid UI type. Please enter 'GUI' or 'Console'.");
             }
         } 
         while (!"GUI".equalsIgnoreCase(uiType) && !"Console".equalsIgnoreCase(uiType));
@@ -55,13 +55,13 @@ public class RunGame {
      * @return True if the user chooses to play against the computer; false otherwise
      */
     private static boolean chooseOpponent() {
-        System.out.println("Enter 'P' if you want to play against another player; enter 'C' to play against computer.");
+        System.out.println("\nEnter 'P' if you want to play against another player; enter 'C' to play against computer.");
         String gameMode;
         do {
             gameMode = scanner.nextLine().trim().toUpperCase();
             if (!gameMode.equals("P") && !gameMode.equals("C")) 
             {
-                System.out.println("Invalid selection. Please enter 'P' or 'C'.");
+                System.out.println("\nInvalid selection. Please enter 'P' or 'C'.");
             }
         } 
         while (!gameMode.equals("P") && !gameMode.equals("C"));
