@@ -67,27 +67,33 @@ public class CheckersComputerPlayer {
      * @param move A string representing the sequence of captures, e.g., "3a-5c-7e".
      */
     private void performMultipleCaptures(String move) {
-        String[] parts = move.split("-");
-        for (int i = 0; i < parts.length - 1; i++) {
-            int startX = parts[i].charAt(0) - '1';
-            int startY = parts[i].charAt(1) - 'a';
-            int endX = parts[i + 1].charAt(0) - '1';
-            int endY = parts[i + 1].charAt(1) - 'a';
-    
-            gameLogic.movePiece(startX, startY, endX, endY);
-    
-            // Check if there are more captures available
-            List<String> possibleCaptures = new ArrayList<>();
-            addValidCapturesForPiece(possibleCaptures, endX, endY);
-    
-            if (!possibleCaptures.isEmpty()) {
-                // Continue with the next capture
-                String nextCapture = possibleCaptures.get(random.nextInt(possibleCaptures.size()));
-                performMultipleCaptures(nextCapture);
-            } else {
-                // No more captures available, break the loop
-                break;
+        try{
+            String[] parts = move.split("-");
+            for (int i = 0; i < parts.length - 1; i++) {
+                int startX = parts[i].charAt(0) - '1';
+                int startY = parts[i].charAt(1) - 'a';
+                int endX = parts[i + 1].charAt(0) - '1';
+                int endY = parts[i + 1].charAt(1) - 'a';
+        
+                gameLogic.movePiece(startX, startY, endX, endY);
+        
+                // Check if there are more captures available
+                List<String> possibleCaptures = new ArrayList<>();
+                addValidCapturesForPiece(possibleCaptures, endX, endY);
+        
+                if (!possibleCaptures.isEmpty()) {
+                    // Continue with the next capture
+                    String nextCapture = possibleCaptures.get(random.nextInt(possibleCaptures.size()));
+                    performMultipleCaptures(nextCapture);
+                } else {
+                    // No more captures available, break the loop
+                    break;
+                }
             }
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("The move " + move + " is invalid because it is out of the board's bounds.");
+            e.printStackTrace();
         }
     }
 
@@ -126,7 +132,7 @@ public class CheckersComputerPlayer {
      */
     private void addValidCapturesForPiece(List<String> possibleCaptures, int x, int y) {
         // Define the possible directions for a capturing move.
-        int[][] directions = {{-2, -2}, {-2, 2}, {2, -2}, {2, 2}};
+        int[][] directions = {{-2, -2}, {-2, 2}};
 
         for (int[] dir : directions) 
         {
@@ -149,12 +155,19 @@ public class CheckersComputerPlayer {
      * @param move A string representing the move, e.g., "3a-4b".
      */
     private void performMove(String move) {
-        String[] parts = move.split("-");
-        int startX = parts[0].charAt(0) - '1';
-        int startY = parts[0].charAt(1) - 'a';
-        int endX = parts[1].charAt(0) - '1';
-        int endY = parts[1].charAt(1) - 'a';
-        
-        gameLogic.movePiece(startX, startY, endX, endY);
+        // Parse the move
+        try{
+            String[] parts = move.split("-");
+            int startX = parts[0].charAt(0) - '1';
+            int startY = parts[0].charAt(1) - 'a';
+            int endX = parts[1].charAt(0) - '1';
+            int endY = parts[1].charAt(1) - 'a';
+            
+            gameLogic.movePiece(startX, startY, endX, endY);
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("The move " + move + " is invalid because it is out of the board's bounds.");
+            e.printStackTrace();
+        }
     }
 }

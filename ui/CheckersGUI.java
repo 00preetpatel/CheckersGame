@@ -60,16 +60,15 @@ public class CheckersGUI extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
-            e.printStackTrace(); // Handle exceptions appropriately
+            e.printStackTrace(); // Print the stack trace for debugging
         }
     }
-
-    
 
     /**
      * Initializes the game board with pieces.
      */
     private void initializeBoard() {
+        // Create the board grid
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Pane square = new Pane();
@@ -84,12 +83,13 @@ public class CheckersGUI extends Application {
         updateUI();
     }
 
-
     /**
      * Updates the UI to reflect the current state of the game board.
      */
     private void updateUI() {
+        // Update the board
         CheckersLogic.Player[][] board = gameLogic.getBoard();
+        // Iterate through the board and add pieces to the UI
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 Pane square = (Pane) getNodeFromGridPane(boardGrid, j, i);
@@ -117,8 +117,8 @@ public class CheckersGUI extends Application {
      * @return the node at the specified position
      */
     private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-
-        for (Node node : gridPane.getChildren()) {
+        // Iterate through the grid pane's children to find the node at the specified position
+        for (Node node : gridPane.getChildren()) { 
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return node;
             }
@@ -169,7 +169,6 @@ public class CheckersGUI extends Application {
                 highlightSquare(selectedX, selectedY, false);
                 selectedX = -1;
                 selectedY = -1;
-                // Optionally, add a message to the user about an invalid move
             }
         }
     }
@@ -219,7 +218,7 @@ public class CheckersGUI extends Application {
         // Create an alert
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
-        alert.setHeaderText(null); // No header
+        alert.setHeaderText(null); // No header needed
         alert.setContentText(winner + " wins the game!");
 
         // Add a custom close button
@@ -235,12 +234,12 @@ public class CheckersGUI extends Application {
         }
     }
 
-
     /**
      * Launches the JavaFX application.
      * @param args command line arguments
      */
     public static void main(String[] args) {
+        // Launch the JavaFX application
         launch(args);
     }
 }

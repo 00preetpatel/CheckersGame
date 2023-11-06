@@ -39,6 +39,7 @@ public class CheckersTextConsole {
             System.out.println("You are playing against another player.");
         }
 
+        // Initialize the computer player
         CheckersComputerPlayer computerPlayer = null;
         if (playAgainstComputer) {
             computerPlayer = new CheckersComputerPlayer(gameLogic);
@@ -46,8 +47,9 @@ public class CheckersTextConsole {
 
         printBoard();
 
+        // Game loop
         while (!gameLogic.isGameEnded()) 
-        {
+        { 
             String currentPlayer = gameLogic.getCurrentPlayer() == CheckersLogic.Player.PLAYER_X ? "X" : "O"; 
             System.out.println("Player " + currentPlayer + "'s turn");
 
@@ -66,7 +68,8 @@ public class CheckersTextConsole {
             int startY = parts[0].charAt(1) - 'a';
             int endX = Character.getNumericValue(parts[1].charAt(0)) - 1;
             int endY = parts[1].charAt(1) - 'a';
-
+            
+            // Execute the move
             if (gameLogic.movePiece(startX, startY, endX, endY)) 
             {
                 System.out.println("Move successful!");
@@ -76,7 +79,7 @@ public class CheckersTextConsole {
                 System.out.println("Invalid move. Try again.");
                 continue; // Skip the rest of the loop to prompt the player again
             }
-
+            
             if (playAgainstComputer && gameLogic.getCurrentPlayer() == CheckersLogic.Player.PLAYER_O) {
                 String computerMove = computerPlayer.generateMove();
             
@@ -92,7 +95,8 @@ public class CheckersTextConsole {
             
                 // Execute the computer's move
                 boolean moveSuccessful = gameLogic.movePiece(compStartX, compStartY, compEndX, compEndY);
-            
+                
+                // Print out the computer's move to show what the computer did
                 if (moveSuccessful) {
                     System.out.println("Computer moved from " + compMoveParts[0] + " to " + compMoveParts[1]);
                 } 
@@ -113,7 +117,7 @@ public class CheckersTextConsole {
     /**
      * Prints the current state of the board to the console.
      */
-    private void printBoard() {
+    private void printBoard() { 
         CheckersLogic.Player[][] board = gameLogic.getBoard(); 
 
         // Print the top coordinate legend
@@ -123,7 +127,8 @@ public class CheckersTextConsole {
             System.out.print(" " + c);
         }
         System.out.println();
-    
+        
+        // Print the top boundary of the board
         for (int i = 0; i < board.length; i++) {
             // Print the side coordinate legend
             System.out.print((i + 1) + " ");

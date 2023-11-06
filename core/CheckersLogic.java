@@ -35,6 +35,7 @@ public class CheckersLogic {
      * It's called once when the game is initialized.
      */
     private void setupBoard() {
+        // Sets-up empty spaces on the board
         for (Player[] row : board) 
         {
             Arrays.fill(row, Player.EMPTY);
@@ -52,6 +53,7 @@ public class CheckersLogic {
             }
         }
 
+        // Sets-up initial pieces for both players
         for (int i = 5; i < 8; i++) 
         {
             for (int j = 0; j < 8; j++) 
@@ -76,6 +78,7 @@ public class CheckersLogic {
      */
     public boolean movePiece(int startX, int startY, int endX, int endY) {
         boolean isMoveForward;
+        // Check if the move is forward or backward
         if (currentPlayer == Player.PLAYER_X) 
         {
             isMoveForward = endX > startX;
@@ -84,6 +87,8 @@ public class CheckersLogic {
         {
             isMoveForward = endX < startX;
         }
+
+        // Check if the move is valid
         if (!isMoveForward) 
         {
             return false;
@@ -125,7 +130,7 @@ public class CheckersLogic {
         } else if (!singleMove) {
             return false;
         }
-    
+        
         board[endX][endY] = currentPlayer;
         board[startX][startY] = Player.EMPTY;
     
@@ -182,6 +187,7 @@ public class CheckersLogic {
      * @return true if the position is within the bounds of the board, false otherwise.
      */
     public boolean isValidPosition(int row, int col) {
+        // Check if the position is within the bounds of the board
         return row >= 0 && row < board.length && col >= 0 && col < board[row].length;
     }
 
@@ -266,6 +272,7 @@ public class CheckersLogic {
      * @return A 2D array representing the current state of the game board.
      */
     public Player[][] getBoard() {
+        // Return a copy of the board to prevent the original from being modified
         return Arrays.stream(board).map(Player[]::clone).toArray(Player[][]::new);
     }
 
