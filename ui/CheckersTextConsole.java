@@ -106,12 +106,11 @@ public class CheckersTextConsole {
                 }
             }
 
-            // Announce the winner
-            String winner = gameLogic.getCurrentPlayer() == CheckersLogic.Player.PLAYER_X ? "O" : "X"; 
-            System.out.println("Game over! Player " + winner + " wins!");
-
             printBoard();
         }
+        // Announce the winner
+            String winner = gameLogic.getCurrentPlayer() == CheckersLogic.Player.PLAYER_X ? "O" : "X"; 
+            System.out.println("Game over! Player " + winner + " wins!");
     }
 
     /**
