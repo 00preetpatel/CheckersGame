@@ -4,7 +4,11 @@ import java.util.Arrays;
 
 /**
  * This class contains the core logic behind simple checkers.
+ * 
+ * @author Preet Patel
+ * @version 1.1
  */
+
 public class CheckersLogic {
 
     /**

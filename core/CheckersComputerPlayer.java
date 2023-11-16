@@ -5,6 +5,9 @@ import java.util.*;
 /**
  * This class represents the computer player for the Checkers game.
  * It is responsible for generating a move for the computer player.
+ * 
+ * @author Preet Patel
+ * @version 1.1
  */
 public class CheckersComputerPlayer {
 
